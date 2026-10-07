@@ -1,0 +1,95 @@
+---
+import "@fontsource-variable/onest/index.css";
+import "../styles/global.css";
+import { COPY } from "../lib/copy";
+import { CONTENT } from "../lib/content";
+import { langPath, langs, type Lang } from "../lib/lang";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { title, description } = COPY[lang].meta;
+const site = Astro.site!;
+const canonical = new URL(langPath(lang), site).href;
+const image = new URL(`/og-${lang}.png`, site).href;
+const locales: Record<Lang, string> = { ru: "ru_RU", tg: "tg_TJ", en: "en_US" };
+
+const ymId = import.meta.env.PUBLIC_YANDEX_METRIKA_ID?.trim();
+const gaId = import.meta.env.PUBLIC_GA_ID?.trim();
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "WebSite", name: "ERP", url: site.href, inLanguage: lang },
+    {
+      "@type": "FAQPage",
+      inLanguage: lang,
+      mainEntity: CONTENT[lang].faq.items.map(([name, text]) => ({
+        "@type": "Question",
+        name,
+        acceptedAnswer: { "@type": "Answer", text },
+      })),
+    },
+    {
+      "@type": "SoftwareApplication",
+      name: "ERP",
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Web, Android, iOS",
+      description,
+      url: canonical,
+      image,
+      inLanguage: lang,
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#1e2c29" />
+    <link rel="canonical" href={canonical} />
+    {langs.map((code) => <link rel="alternate" hreflang={code} href={new URL(langPath(code), site).href} />)}
+    <link rel="alternate" hreflang="x-default" href={new URL("/", site).href} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ERP" />
+    <meta property="og:locale" content={locales[lang]} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <script is:inline>
+      // Apply the saved theme before first paint so there is no light flash in dark mode.
+      try {
+        if (localStorage.getItem("erp-landing-theme") === "dark") document.documentElement.classList.add("dark");
+      } catch (e) {}
+    </script>
+    <noscript>
+      <style>
+        .lp-reveal { opacity: 1 !important; transform: none !important; }
+      </style>
+    </noscript>
+    {gaId && <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />}
+    {gaId && <script is:inline define:vars={{ gaId }}>window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config',gaId);</script>}
+    {ymId && <script is:inline define:vars={{ ymId }}>(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,'script','https://mc.yandex.ru/metrika/tag.js','ym');ym(Number(ymId),'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true});</script>}
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
