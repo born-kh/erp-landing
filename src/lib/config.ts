@@ -18,7 +18,7 @@ export const leadEndpoint = clean(env.PUBLIC_LEAD_ENDPOINT);
 
 export const siteConfig = {
   /** The login page of the ERP web app. */
-  appUrl: clean(env.PUBLIC_APP_URL) || "/login",
+  appUrl: clean(env.PUBLIC_APP_URL) || "https://developer-erp-frontend.vercel.app/login",
   androidUrl: clean(env.PUBLIC_APP_ANDROID_URL),
   iosUrl: clean(env.PUBLIC_APP_IOS_URL),
   contacts: {
