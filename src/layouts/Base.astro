@@ -73,12 +73,6 @@ const jsonLd = {
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={image} />
-    <script is:inline>
-      // Apply the saved theme before first paint so there is no light flash in dark mode.
-      try {
-        if (localStorage.getItem("erp-landing-theme") === "dark") document.documentElement.classList.add("dark");
-      } catch (e) {}
-    </script>
     <noscript>
       <style>
         .lp-reveal { opacity: 1 !important; transform: none !important; }

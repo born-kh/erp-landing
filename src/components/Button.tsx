@@ -5,7 +5,7 @@ const base =
   "inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0";
 const variants = {
   default: "bg-primary text-primary-foreground hover:bg-primary/90",
-  outline: "border border-border bg-card hover:bg-secondary",
+  outline: "border border-border bg-card/60 hover:bg-secondary",
 };
 const sizes = {
   sm: "h-8 px-3",

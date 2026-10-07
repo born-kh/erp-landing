@@ -66,7 +66,7 @@ export function ContractMinute({ copy }: { copy: Copy["minute"] }) {
                         ? "border-[var(--success)]/50 bg-card text-[var(--success)]"
                         : cell === "r"
                           ? "border-[var(--warning)]/50 bg-[var(--warning-bg)] text-[var(--warning)]"
-                          : "border-transparent bg-foreground/70 text-background/85 dark:bg-foreground/25 dark:text-foreground/55",
+                          : "border-transparent bg-foreground/70 text-background/85",
                   )}
                 >
                   {(3 - r) * 10 + c + 23}
@@ -78,7 +78,7 @@ export function ContractMinute({ copy }: { copy: Copy["minute"] }) {
       </div>
     ) : (
       <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
-        <div className="rounded-lg border border-border bg-white p-4 font-serif text-[13px] leading-relaxed text-[#111] shadow-sm dark:bg-[#f6f3ec]">
+        <div className="rounded-lg border border-border bg-white p-4 font-serif text-[13px] leading-relaxed text-[#111] shadow-sm">
           <div className="mb-2 text-center text-sm font-bold">{copy.docTitle}</div>
           {copy.docFields.map((field, i) => (
             <p key={field} className="m-0 mb-1.5">

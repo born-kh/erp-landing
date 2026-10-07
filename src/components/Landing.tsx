@@ -108,7 +108,7 @@ const NEXT: Record<Cell, Cell> = { a: "r", r: "s", s: "a" };
 const CELL_STYLE: Record<Cell, string> = {
   a: "border-[var(--success)]/50 bg-card text-[var(--success)]",
   r: "border-[var(--warning)]/50 bg-[var(--warning-bg)] text-[var(--warning)]",
-  s: "border-transparent bg-foreground/70 text-background/85 dark:bg-foreground/25 dark:text-foreground/55",
+  s: "border-transparent bg-foreground/70 text-background/85",
 };
 
 /** The chessboard comes alive: cells pop in, then one apartment at a time changes status. */
@@ -333,7 +333,7 @@ function ProductTour({ copy }: { copy: Copy["tour"] }) {
               )}
               {tab === 2 && (
                 <div className="grid gap-4 lg:grid-cols-[1fr_auto]">
-                  <div className="rounded-lg border border-border bg-white p-5 font-serif text-[13px] leading-relaxed text-[#111] shadow-sm dark:bg-[#f6f3ec]">
+                  <div className="rounded-lg border border-border bg-white p-5 font-serif text-[13px] leading-relaxed text-[#111] shadow-sm">
                     <div className="mb-3 text-center text-sm font-bold">{copy.docTitle}</div>
                     {copy.docFields.map((field, i) => (
                       <p key={field} className="m-0 mb-1.5">
@@ -678,9 +678,11 @@ function Proof({ content }: { content: Content["proof"] }) {
           </ul>
         </Reveal>
         <div className="grid items-stretch gap-6 lg:grid-cols-[1.1fr_1fr]">
-          <Reveal className="grid content-center gap-8 sm:grid-cols-3">
+          <Reveal className="grid content-center gap-3 sm:grid-cols-3">
             {content.stats.map((stat) => (
-              <Stat key={stat.label} {...stat} />
+              <div key={stat.label} className="rounded-2xl border border-border bg-card p-5 text-center">
+                <Stat {...stat} />
+              </div>
             ))}
           </Reveal>
           <Reveal delay={0.1}>
@@ -990,7 +992,7 @@ export function Landing({ lang }: { lang: Lang }) {
         )}
       >
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
-          <BrandLogo size="sm" className="dark:rounded-md dark:bg-[var(--limestone)] dark:p-1" />
+          <BrandLogo size="sm" />
           <nav className="flex items-center gap-1.5 sm:gap-2">
             <a href="#features" className="hidden px-3 text-sm text-muted-foreground transition-colors hover:text-foreground md:inline">
               {copy.more}
@@ -1024,9 +1026,9 @@ export function Landing({ lang }: { lang: Lang }) {
       <main>
         <section className="relative">
           <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-            <div className="lp-blob absolute -top-24 -right-24 size-[520px] rounded-full bg-[var(--terra)]/20 blur-3xl" />
+            <div className="lp-blob absolute -top-32 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-[var(--terra)]/20 blur-3xl" />
             <div
-              className="lp-blob absolute -bottom-32 -left-24 size-[460px] rounded-full bg-[var(--majolica)]/15 blur-3xl"
+              className="lp-blob absolute top-40 -right-24 size-[360px] rounded-full bg-[var(--majolica)]/15 blur-3xl"
               style={{ animationDelay: "-6s" }}
             />
             <div
@@ -1034,48 +1036,42 @@ export function Landing({ lang }: { lang: Lang }) {
               style={{
                 backgroundImage: "radial-gradient(rgba(30,44,41,0.12) 1px, transparent 1px)",
                 backgroundSize: "22px 22px",
-                maskImage: "radial-gradient(ellipse at 50% 30%, black, transparent 70%)",
-                WebkitMaskImage: "radial-gradient(ellipse at 50% 30%, black, transparent 70%)",
+                maskImage: "radial-gradient(ellipse at 50% 20%, black, transparent 65%)",
+                WebkitMaskImage: "radial-gradient(ellipse at 50% 20%, black, transparent 65%)",
               }}
             />
           </div>
-          <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-14 sm:px-6 md:grid-cols-[1.05fr_1fr] md:py-24">
-            <div>
-              <Rise>
-                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">
-                  <span className="relative flex size-2">
-                    <span className="absolute inline-flex size-full animate-ping rounded-full bg-[var(--success)] opacity-60" />
-                    <span className="relative inline-flex size-2 rounded-full bg-[var(--success)]" />
-                  </span>
-                  {copy.eyebrow}
-                </span>
-              </Rise>
-              <Rise delay={0.08}>
-                <h1 className="mt-5 mb-4 text-4xl leading-[1.06] font-semibold tracking-[-0.035em] text-balance sm:text-5xl lg:text-6xl">
-                  {copy.title} <span className="lp-gradient-text">{copy.accent}</span>
-                </h1>
-              </Rise>
-              <Rise delay={0.16}>
-                <p className="m-0 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">{copy.lead}</p>
-              </Rise>
-              {/* One promise, one action. */}
-              <Rise delay={0.24} className="mt-8">
-                <Button asChild size="lg" className="group shadow-lg shadow-[var(--cedar)]/20 transition-transform hover:-translate-y-0.5">
-                  {hasDemo ? (
-                    <a href="#contacts" onClick={() => track("demo_click")}>
-                      {copy.contact.demo}
-                      <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-                    </a>
-                  ) : (
-                    <a href={siteConfig.appUrl} onClick={() => track("login_click")}>
-                      {copy.cta}
-                      <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-                    </a>
-                  )}
-                </Button>
-              </Rise>
-            </div>
-            <Rise delay={0.2}>
+          <div className="mx-auto max-w-6xl px-4 pt-14 pb-10 text-center sm:px-6 md:pt-24">
+            <Rise>
+              <span className="text-xs font-medium tracking-[0.2em] text-muted-foreground uppercase">{copy.eyebrow}</span>
+            </Rise>
+            <Rise delay={0.08}>
+              <h1 className="mx-auto mt-5 mb-5 max-w-4xl text-4xl leading-[1.05] font-semibold tracking-[-0.04em] text-balance sm:text-6xl lg:text-7xl">
+                {copy.title} <span className="lp-gradient-text">{copy.accent}</span>
+              </h1>
+            </Rise>
+            <Rise delay={0.16}>
+              <p className="mx-auto m-0 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">{copy.lead}</p>
+            </Rise>
+            <Rise delay={0.24} className="mt-8 flex flex-wrap items-center justify-center gap-3">
+              <Button asChild size="lg" className="group shadow-lg shadow-[var(--cedar)]/20 transition-transform hover:-translate-y-0.5">
+                {hasDemo ? (
+                  <a href="#contacts" onClick={() => track("demo_click")}>
+                    {copy.contact.demo}
+                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                  </a>
+                ) : (
+                  <a href={siteConfig.appUrl} onClick={() => track("login_click")}>
+                    {copy.cta}
+                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                  </a>
+                )}
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <a href="#features">{copy.more}</a>
+              </Button>
+            </Rise>
+            <Rise delay={0.3} className="mx-auto mt-14 max-w-xl text-left">
               <Board legend={copy.legend} chips={copy.chips} />
             </Rise>
           </div>
@@ -1128,7 +1124,7 @@ export function Landing({ lang }: { lang: Lang }) {
 
       <footer className="border-t border-border">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 pt-6 pb-24 text-sm text-muted-foreground sm:px-6 sm:pb-6">
-          <BrandLogo size="sm" className="opacity-80 dark:rounded-md dark:bg-[var(--limestone)] dark:p-1" />
+          <BrandLogo size="sm" className="opacity-80" />
           <span>{copy.footer}</span>
           <a href={siteConfig.appUrl} onClick={() => track("login_click")} className="transition-colors hover:text-foreground">
             {copy.login}

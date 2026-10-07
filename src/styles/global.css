@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:is(.dark *));
-
 :root {
   --cedar: #1e2c29;
   --cedar-2: #2a3a36;
@@ -80,80 +78,6 @@
 
   --font-sans: "Onest Variable", Onest, ui-sans-serif, system-ui, sans-serif;
   --font-serif: Fraunces, Georgia, serif;
-}
-
-.dark {
-  --cedar: #1e2c29;
-  --cedar-2: #2a3a36;
-  --terra: #e07a4a;
-  --majolica: #5eb3ab;
-  --limestone: #f3eee4;
-
-  --background: #121a18;
-  --foreground: #f3eee4;
-  --card: #1a2623;
-  --card-foreground: #f3eee4;
-  --popover: #1a2623;
-  --popover-foreground: #f3eee4;
-  --primary: #e07a4a;
-  --primary-foreground: #1a1612;
-  --secondary: #2a3a36;
-  --secondary-foreground: #f3eee4;
-  --muted: #2a3a36;
-  --muted-foreground: #b7aea2;
-  --accent: #2a3a36;
-  --accent-foreground: #f3eee4;
-  --destructive: #d0726a;
-  --destructive-foreground: #1a1612;
-  --border: rgba(243, 238, 228, 0.12);
-  --input: rgba(243, 238, 228, 0.16);
-  --ring: #e07a4a;
-
-  --sidebar: #0d1412;
-  --sidebar-foreground: #f3eee4;
-  --sidebar-primary: #e07a4a;
-  --sidebar-primary-foreground: #1a1612;
-  --sidebar-accent: rgba(224, 122, 74, 0.18);
-  --sidebar-accent-foreground: #e07a4a;
-  --sidebar-border: rgba(243, 238, 228, 0.08);
-  --sidebar-ring: #e07a4a;
-
-  --success: #8fbf9a;
-  --success-bg: rgba(62, 106, 79, 0.22);
-  --warning: #d4b56a;
-  --warning-bg: rgba(181, 122, 42, 0.22);
-  --info: #5eb3ab;
-  --info-bg: rgba(31, 122, 114, 0.28);
-  --destructive-bg: rgba(163, 59, 50, 0.28);
-
-  --ink: #f3eee4;
-  --navy: var(--cedar);
-  --navy-2: var(--cedar-2);
-  --paper: #121a18;
-  --sand: #2a3a36;
-  --line: rgba(243, 238, 228, 0.12);
-  --gold: var(--terra);
-  --copper: #d36b3a;
-  --green: #8fbf9a;
-  --green-bg: rgba(62, 106, 79, 0.22);
-  --red: #d0726a;
-  --red-bg: rgba(163, 59, 50, 0.28);
-  --amber: #d4b56a;
-  --amber-bg: rgba(181, 122, 42, 0.22);
-  --blue: #5eb3ab;
-  --blue-bg: rgba(31, 122, 114, 0.28);
-  --shadow: none;
-
-  --chess-available: #2a4538;
-  --chess-reserved: #4a3a22;
-  --chess-sold: #4a2e2c;
-  --chess-hold: #1e3a38;
-  --chess-available-fg: #c5e0d0;
-  --chess-reserved-fg: #e8d4a8;
-  --chess-sold-fg: #e8c4c0;
-  --chess-hold-fg: #b8d8d4;
-  --plan-bg: #1a2623;
-  --plan-surface: #2a3a36;
 }
 
 @theme inline {
